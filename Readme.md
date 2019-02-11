@@ -29,7 +29,14 @@ An Automated SQL Server backup service for windows (coded via VB.NET) that worke
   * **ConnectionString**: A String that represents the SQL Server instance connection string
   * **DatabaseName**:  A String that represents the database name to backup
   * **AutoDeleteDelay**:  A Short number that represents the time in days to keep the backup and log files before automatic deletion
-  
+
+4. Run the **install.bat** file
+
+Note: you can stop or start the service by running the **stop.bat** or **start.bat** files respectively.
+
+# Uninstall
+To stop and uninstall the service simply run the **uninstall.bat** file, or type ```sc delete MFSQLBackupService``` into cmd with administrative access.
+
   # License
 This project is licensed under the [GNU General Public License terms][1]
     
