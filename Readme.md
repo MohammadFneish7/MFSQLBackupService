@@ -1,4 +1,6 @@
-# MFSQLBackupService ![Icon](https://github.com/MohammadFneish7/MFSQLBackupService/blob/master/icon_x36.png)
+<h1> <img src="https://github.com/MohammadFneish7/MFSQLBackupService/blob/master/icon_x36.png"
+  style="float:left;">
+MFSQLBackupService
 
 An Automated SQL Server backup service for windows (coded via VB.NET) that workes on taking a full database backup on a schedule.
 
