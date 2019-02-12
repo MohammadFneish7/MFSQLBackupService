@@ -40,8 +40,8 @@ Note: you can stop or start the service by running the **stop.bat** or **start.b
 To stop and uninstall the service simply run the **uninstall.bat** file, or type ```sc delete MFSQLBackupService``` into cmd with administrative access.
 
   # License
-This project is licensed under [GNU General Public License][1]
+This project is licensed under [GNU General Public License][1].
     
     
-[1]: https://github.com/MohammadFneish7/MFSQLBackupService/blob/master/LICENSE.
+[1]: https://github.com/MohammadFneish7/MFSQLBackupService/blob/master/LICENSE
   
