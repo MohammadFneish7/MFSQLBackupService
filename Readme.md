@@ -7,7 +7,7 @@ An Automated SQL Server backup service for windows (coded via VB.NET) that worke
 # Installation
 
 1. Preform: git clone https://github.com/MohammadFneish7/MFSQLBackupService.git
-2. After cloning, navigate to **~/MFSQLBackupService/MFSQLBackupService/bin/Release/**
+2. After cloning, navigate to **~/MFSQLBackupService/bin/Release/**
 3. Edit the settings file **MFSQLBackupService.exe.config** to fit your case:
 ```
             <setting name="BackupDirectory" serializeAs="String">
