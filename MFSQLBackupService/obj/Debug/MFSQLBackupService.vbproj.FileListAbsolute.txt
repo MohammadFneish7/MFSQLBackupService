@@ -1,0 +1,11 @@
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\bin\Debug\MFSQLBackupService.exe.config
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\bin\Debug\MFSQLBackupService.exe
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\bin\Debug\MFSQLBackupService.pdb
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\bin\Debug\MFSQLBackupService.xml
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Debug\MFSQLBackupService.MFSQLBackupService.resources
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Debug\MFSQLBackupService.Resources.resources
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Debug\MFSQLBackupService.ProjectInstaller.resources
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Debug\MFSQLBackupService.vbproj.GenerateResource.Cache
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Debug\MFSQLBackupService.exe
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Debug\MFSQLBackupService.xml
+C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Debug\MFSQLBackupService.pdb

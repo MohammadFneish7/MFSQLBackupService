@@ -75,7 +75,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("EEMS")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("EEMS, ClientDB")>  _
         Public ReadOnly Property DatabaseName() As String
             Get
                 Return CType(Me("DatabaseName"),String)

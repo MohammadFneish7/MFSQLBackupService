@@ -4,15 +4,32 @@ Public Class MFSQLBackupService
 
     Dim Timer1 As Timers.Timer
     Dim backupHourMap As New Dictionary(Of String, Boolean)
+    Dim dbNames As New List(Of String)
 
     Protected Overrides Sub OnStart(ByVal args() As String)
         Try
-            Dim hours As String() = My.Settings.AutoBackupTime.ToString.Split(",")
-            For Each Hour As String In hours
-                If Hour.Trim.Length > 0 Then
-                    backupHourMap.Add(Hour.Trim, False)
+            If My.Settings.AutoBackupTime.Contains(",") Then
+                Dim hours As String() = My.Settings.AutoBackupTime.ToString.Split(",")
+                For Each Hour As String In hours
+                    If Hour.Trim.Length > 0 Then
+                        backupHourMap.Add(Hour.Trim, False)
+                    End If
+                Next
+            Else
+                If My.Settings.AutoBackupTime.Trim.Trim.Length > 0 Then
+                    backupHourMap.Add(My.Settings.AutoBackupTime.Trim, False)
                 End If
-            Next
+            End If
+
+            If My.Settings.DatabaseName.ToString.Contains(",") Then
+                For Each dbname As String In My.Settings.DatabaseName.ToString.Split(",")
+                    If dbname.Trim.Length > 0 Then
+                        dbNames.Add(dbname)
+                    End If
+                Next
+            Else
+                dbNames.Add(My.Settings.DatabaseName.ToString.Trim)
+            End If
 
             WriteToFile("Sql automated backup service started with Configs:" & _
                         vbNewLine & "Connection String: " & My.Settings.ConnectionString & _
@@ -45,7 +62,9 @@ Public Class MFSQLBackupService
                 If Date.Now.Hour.ToString.Equals(Hour) Then
                     If backupTaken = False Then
                         backupHourMap(Hour) = True
-                        TakeBackup()
+                        For Each dbname As String In dbNames
+                            TakeBackup(dbname)
+                        Next
                     End If
                 Else
                     backupHourMap(Hour) = False
@@ -106,8 +125,8 @@ Public Class MFSQLBackupService
         Return s & "\ServiceLog"
     End Function
 
-    Private Sub TakeBackup()
-        WriteToFile("Backuping database...")
+    Private Sub TakeBackup(DatabaseName As String)
+        WriteToFile("Backuping database (" & DatabaseName & ")...")
         Dim sqlHelper As SqlDBHelper.Helper = Nothing
 
         Try
@@ -128,7 +147,7 @@ Public Class MFSQLBackupService
                                    " DECLARE db_cursor CURSOR READ_ONLY FOR  " & _
                                    " Select Name" & _
                                    " FROM master.dbo.sysdatabases " & _
-                                   " WHERE name IN ('" & My.Settings.DatabaseName & "')" & _
+                                   " WHERE name IN ('" & DatabaseName & "')" & _
                                    " " & _
                                    " OPEN db_cursor   " & _
                                    " FETCH NEXT FROM db_cursor INTO @name   " & _

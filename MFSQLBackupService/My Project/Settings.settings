@@ -9,7 +9,7 @@
       <Value Profile="(Default)">Server=DESKTOP-O3TSL14;Database=EEMS;Persist Security Info=True;Integrated Security=true;</Value>
     </Setting>
     <Setting Name="DatabaseName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">EEMS</Value>
+      <Value Profile="(Default)">EEMS, ClientDB</Value>
     </Setting>
     <Setting Name="AutoDeleteDelay" Type="System.Int16" Scope="Application">
       <Value Profile="(Default)">10</Value>
