@@ -17,7 +17,7 @@ An Automated SQL Server backup service for windows (coded via VB.NET) that worke
                 <value>Server=DESKTOP-O3TSL14;Database=EEMS;Persist Security Info=True;Integrated Security=true;</value>
             </setting>
             <setting name="DatabaseName" serializeAs="String">
-                <value>EEMS</value>
+                <value>EEMS, ClientDB</value>
             </setting>
             <setting name="AutoDeleteDelay" serializeAs="String">
                 <value>10</value>
@@ -29,7 +29,7 @@ An Automated SQL Server backup service for windows (coded via VB.NET) that worke
   * **AutoBackupTime**: A String of numbers splitted by "," between 0 and 23 that represents the time as Hour to take the backup
   * **BackupDirectory**: A String that represents the backup directory
   * **ConnectionString**: A String that represents the SQL Server instance connection string
-  * **DatabaseName**:  A String that represents the database name to backup
+  * **DatabaseName**:  A String of databases' names to backup splitted by ","
   * **AutoDeleteDelay**:  A Short number that represents the time in days to keep the backup and log files before automatic deletion
 
 4. Run the **install.bat** file
