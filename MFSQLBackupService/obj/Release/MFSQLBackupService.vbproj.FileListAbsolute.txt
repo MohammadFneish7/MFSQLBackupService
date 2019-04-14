@@ -9,14 +9,3 @@ C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService\MFSQL
 C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService\MFSQLBackupService\obj\Release\MFSQLBackupService.exe
 C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService\MFSQLBackupService\obj\Release\MFSQLBackupService.xml
 C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService\MFSQLBackupService\obj\Release\MFSQLBackupService.pdb
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\bin\Release\MFSQLBackupService.exe.config
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\bin\Release\MFSQLBackupService.exe
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\bin\Release\MFSQLBackupService.pdb
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\bin\Release\MFSQLBackupService.xml
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Release\MFSQLBackupService.MFSQLBackupService.resources
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Release\MFSQLBackupService.Resources.resources
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Release\MFSQLBackupService.ProjectInstaller.resources
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Release\MFSQLBackupService.vbproj.GenerateResource.Cache
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Release\MFSQLBackupService.exe
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Release\MFSQLBackupService.xml
-C:\Users\MOHAMMAD\Documents\Visual Studio 2012\Projects\MFSQLBackupService_Git\MFSQLBackupService\obj\Release\MFSQLBackupService.pdb

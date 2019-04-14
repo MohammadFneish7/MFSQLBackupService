@@ -65,20 +65,13 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Server=DESKTOP-O3TSL14;Database=EEMS;Persist Security Info=True;Integrated Securi"& _ 
-            "ty=true;")>  _
-        Public ReadOnly Property ConnectionString() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("<?xml version=""1.0"" encoding=""utf-16""?>"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"<ArrayOfString xmlns:xsi=""http://www.w3."& _ 
+            "org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"  <s"& _ 
+            "tring>Server=DESKTOP-O3TSL14;Database=EEMS;Persist Security Info=True;Integrated"& _ 
+            " Security=true;</string>"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"</ArrayOfString>")>  _
+        Public ReadOnly Property ConnectionString() As Global.System.Collections.Specialized.StringCollection
             Get
-                Return CType(Me("ConnectionString"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("EEMS, ClientDB")>  _
-        Public ReadOnly Property DatabaseName() As String
-            Get
-                Return CType(Me("DatabaseName"),String)
+                Return CType(Me("ConnectionString"),Global.System.Collections.Specialized.StringCollection)
             End Get
         End Property
         
@@ -93,10 +86,13 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("1,6,15,21")>  _
-        Public ReadOnly Property AutoBackupTime() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("<?xml version=""1.0"" encoding=""utf-16""?>"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"<ArrayOfString xmlns:xsi=""http://www.w3."& _ 
+            "org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"  <s"& _ 
+            "tring>0</string>"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"  <string>12</string>"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"  <string>21</string>"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"</ArrayOfString>"& _ 
+            "")>  _
+        Public ReadOnly Property AutoBackupTime() As Global.System.Collections.Specialized.StringCollection
             Get
-                Return CType(Me("AutoBackupTime"),String)
+                Return CType(Me("AutoBackupTime"),Global.System.Collections.Specialized.StringCollection)
             End Get
         End Property
     End Class

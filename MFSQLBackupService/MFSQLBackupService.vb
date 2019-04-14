@@ -1,41 +1,24 @@
 ﻿Imports System.IO
+Imports System.Collections.Specialized
+Imports System.Data.SqlClient
 
 Public Class MFSQLBackupService
 
     Dim Timer1 As Timers.Timer
     Dim backupHourMap As New Dictionary(Of String, Boolean)
-    Dim dbNames As New List(Of String)
 
     Protected Overrides Sub OnStart(ByVal args() As String)
         Try
-            If My.Settings.AutoBackupTime.Contains(",") Then
-                Dim hours As String() = My.Settings.AutoBackupTime.ToString.Split(",")
-                For Each Hour As String In hours
-                    If Hour.Trim.Length > 0 Then
-                        backupHourMap.Add(Hour.Trim, False)
-                    End If
-                Next
-            Else
-                If My.Settings.AutoBackupTime.Trim.Trim.Length > 0 Then
-                    backupHourMap.Add(My.Settings.AutoBackupTime.Trim, False)
+            For Each Hour As String In My.Settings.AutoBackupTime
+                If Hour.Trim.Length > 0 Then
+                    backupHourMap.Add(Hour.Trim, False)
                 End If
-            End If
-
-            If My.Settings.DatabaseName.ToString.Contains(",") Then
-                For Each dbname As String In My.Settings.DatabaseName.ToString.Split(",")
-                    If dbname.Trim.Length > 0 Then
-                        dbNames.Add(dbname)
-                    End If
-                Next
-            Else
-                dbNames.Add(My.Settings.DatabaseName.ToString.Trim)
-            End If
+            Next
 
             WriteToFile("Sql automated backup service started with Configs:" & _
-                        vbNewLine & "Connection String: " & My.Settings.ConnectionString & _
-                        vbNewLine & "Database Name: " & My.Settings.DatabaseName & _
+                        vbNewLine & "Connection String: " & printStringCollection(My.Settings.ConnectionString, vbNewLine & vbTab) & _
                         vbNewLine & "Backup Directory: " & My.Settings.BackupDirectory & _
-                        vbNewLine & "Backup Schedule: " & My.Settings.AutoBackupTime & _
+                        vbNewLine & "Backup Schedule: " & printStringCollection(My.Settings.AutoBackupTime, ",") & _
                         vbNewLine & "Auto Delete Delay: " & My.Settings.AutoDeleteDelay)
 
             Timer1 = New Timers.Timer
@@ -53,6 +36,18 @@ Public Class MFSQLBackupService
         WriteToFile("Sql automated backup service stopped")
     End Sub
 
+    Private Function printStringCollection(ByVal stringcollection As StringCollection, ByVal splitter As String) As String
+        Dim s As String = String.Empty
+        For Each item As String In stringcollection
+            If s.Equals(String.Empty) Then
+                s = item
+            Else
+                s = s & splitter & item
+            End If
+        Next
+        Return s.Trim
+    End Function
+
     Private Sub Timer1_Tick(sender As Object, e As EventArgs)
         Try
             For Each kvp As KeyValuePair(Of String, Boolean) In backupHourMap.ToList
@@ -62,16 +57,14 @@ Public Class MFSQLBackupService
                 If Date.Now.Hour.ToString.Equals(Hour) Then
                     If backupTaken = False Then
                         backupHourMap(Hour) = True
-                        For Each dbname As String In dbNames
-                            TakeBackup(dbname)
-                        Next
+                        TakeBackup()
                     End If
                 Else
                     backupHourMap(Hour) = False
                 End If
             Next
         Catch ex As Exception
-            WriteToFile(ex.StackTrace)
+            WriteToFile("Exception: " & ex.Message & "\n" & ex.StackTrace)
             Me.EventLog.WriteEntry(ex.Message)
         End Try
     End Sub
@@ -125,59 +118,65 @@ Public Class MFSQLBackupService
         Return s & "\ServiceLog"
     End Function
 
-    Private Sub TakeBackup(DatabaseName As String)
-        WriteToFile("Backuping database (" & DatabaseName & ")...")
+    Private Sub TakeBackup()
+        WriteToFile("Taking database(s) Backup...")
         Dim sqlHelper As SqlDBHelper.Helper = Nothing
 
-        Try
-            If Directory.Exists(My.Settings.BackupDirectory) = False Then
-                Directory.CreateDirectory(My.Settings.BackupDirectory)
-            End If
 
-            sqlHelper = New SqlDBHelper.Helper
-            Dim backupQuery As String = "DECLARE @name VARCHAR(50) " & _
-                                   " DECLARE @path VARCHAR(256) " & _
-                                   " DECLARE @fileName VARCHAR(256) " & _
-                                   " DECLARE @fileDate VARCHAR(20) " & _
-                                   " " & _
-                                   " SET @path = '" & My.Settings.BackupDirectory & "\' " & _
-                                   " " & _
-                                   " SELECT @fileDate = CONVERT(VARCHAR(20),GETDATE(),112) " & _
-                                   " " & _
-                                   " DECLARE db_cursor CURSOR READ_ONLY FOR  " & _
-                                   " Select Name" & _
-                                   " FROM master.dbo.sysdatabases " & _
-                                   " WHERE name IN ('" & DatabaseName & "')" & _
-                                   " " & _
-                                   " OPEN db_cursor   " & _
-                                   " FETCH NEXT FROM db_cursor INTO @name   " & _
-                                   " " & _
-                                   " WHILE @@FETCH_STATUS = 0   " & _
-                                   " BEGIN   " & _
-                                   "    SET @fileName = @path + @name + '_' + @fileDate + '_" & Date.Now.Hour & "' +'.BAK'  " & _
-                                   "    BACKUP DATABASE @name TO DISK = @fileName  " & _
-                                   " " & _
-                                   "    FETCH NEXT FROM db_cursor INTO @name   " & _
-                                   "                 End" & _
-                                   " " & _
-                                   " " & _
-                                   " CLOSE db_cursor " & _
-                                   " DEALLOCATE db_cursor"
+        If Directory.Exists(My.Settings.BackupDirectory) = False Then
+            Directory.CreateDirectory(My.Settings.BackupDirectory)
+        End If
+        For Each constr As String In My.Settings.ConnectionString
+            Try
+                Dim builder As New SqlConnectionStringBuilder(constr)
+                WriteToFile("Backuping database '" & builder.InitialCatalog & "'...")
 
-            sqlHelper.Execute(backupQuery)
-            WriteToFile("Backup taken successfully")
+                sqlHelper = New SqlDBHelper.Helper(constr, Me)
 
-        Catch ex As Exception
-            WriteToFile(ex.StackTrace)
-        Finally
-            If Not sqlHelper Is Nothing Then
-                Try
-                    sqlHelper.cn.Close()
-                Catch ex As Exception
+                Dim backupQuery As String = "DECLARE @name VARCHAR(50) " & _
+                                       " DECLARE @path VARCHAR(256) " & _
+                                       " DECLARE @fileName VARCHAR(256) " & _
+                                       " DECLARE @fileDate VARCHAR(20) " & _
+                                       " " & _
+                                       " SET @path = '" & My.Settings.BackupDirectory & "\' " & _
+                                       " " & _
+                                       " SELECT @fileDate = CONVERT(VARCHAR(20),GETDATE(),112) " & _
+                                       " " & _
+                                       " DECLARE db_cursor CURSOR READ_ONLY FOR  " & _
+                                       " Select Name" & _
+                                       " FROM master.dbo.sysdatabases " & _
+                                       " WHERE name IN ('" & builder.InitialCatalog & "')" & _
+                                       " " & _
+                                       " OPEN db_cursor   " & _
+                                       " FETCH NEXT FROM db_cursor INTO @name   " & _
+                                       " " & _
+                                       " WHILE @@FETCH_STATUS = 0   " & _
+                                       " BEGIN   " & _
+                                       "    SET @fileName = @path + @name + '_' + @fileDate + '_" & Date.Now.Hour & "' +'.BAK'  " & _
+                                       "    BACKUP DATABASE @name TO DISK = @fileName  " & _
+                                       " " & _
+                                       "    FETCH NEXT FROM db_cursor INTO @name   " & _
+                                       "                 End" & _
+                                       " " & _
+                                       " " & _
+                                       " CLOSE db_cursor " & _
+                                       " DEALLOCATE db_cursor"
 
-                End Try
-            End If
-        End Try
+                sqlHelper.Execute(backupQuery)
+                WriteToFile("Backup taken successfully")
+            Catch ex As Exception
+                WriteToFile("Exception: " & ex.Message & "\n" & ex.StackTrace)
+                Me.EventLog.WriteEntry(ex.Message)
+            Finally
+                If Not sqlHelper Is Nothing Then
+                    Try
+                        sqlHelper.cn.Close()
+                    Catch ex As Exception
+
+                    End Try
+                End If
+            End Try
+        Next
     End Sub
 
 End Class

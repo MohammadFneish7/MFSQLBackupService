@@ -13,8 +13,13 @@ An Automated SQL Server backup service for windows (coded via VB.NET) that worke
             <setting name="BackupDirectory" serializeAs="String">
                 <value>C:\Backup</value>
             </setting>
-            <setting name="ConnectionString" serializeAs="String">
-                <value>Server=DESKTOP-O3TSL14;Database=EEMS;Persist Security Info=True;Integrated Security=true;</value>
+            <setting name="ConnectionString" serializeAs="Xml">
+                <value>
+                    <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <string>Server=DESKTOP-O3TSL14;Database=EEMS;Persist Security Info=True;Integrated Security=true;</string>
+                    </ArrayOfString>
+                </value>
             </setting>
             <setting name="DatabaseName" serializeAs="String">
                 <value>EEMS, ClientDB</value>
@@ -22,15 +27,21 @@ An Automated SQL Server backup service for windows (coded via VB.NET) that worke
             <setting name="AutoDeleteDelay" serializeAs="String">
                 <value>10</value>
             </setting>
-            <setting name="AutoBackupTime" serializeAs="String">
-                <value>1,6,15,21</value>
+            <setting name="AutoBackupTime" serializeAs="Xml">
+                <value>
+                    <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <string>0</string>
+                        <string>12</string>
+                        <string>21</string>
+                    </ArrayOfString>
+                </value>
             </setting>
 ```
-  * **AutoBackupTime**: A String of numbers splitted by "," between 0 and 23 that represents the time as Hour to take the backup
   * **BackupDirectory**: A String that represents the backup directory
-  * **ConnectionString**: A String that represents the SQL Server instance connection string
-  * **DatabaseName**:  A String of databases' names to backup splitted by ","
+  * **ConnectionString**: A String Collection that represents the SQL Server instances connection strings that will be scheduled for the backup
   * **AutoDeleteDelay**:  A Short number that represents the time in days to keep the backup and log files before automatic deletion
+  * **AutoBackupTime**: A String Collection of numbers in range of 0 to 23 that represents the time in Hours to take the backup within
 
 4. Run the **install.bat** file
 
